@@ -1,0 +1,62 @@
+site_name: GCP Training Notes
+site_description: Comprehensive GCP training materials by Jeff Davis and ROI Training
+site_author: Jeff Davis
+site_url: https://jwdavis.github.io/gcp_notes
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+
+plugins:
+  - search
+  - awesome-pages
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+
+nav:
+  - Home: index.md
+  - Cloud Storage: cloud-storage.md
+  - BigQuery: bigquery.md
+  - Dataproc: dataproc.md
+  - Dataflow: dataflow.md
+  - Composer: composer.md
+  - Pub/Sub: pubsub.md
+  - Security: security.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/roitraining/gcp-demos

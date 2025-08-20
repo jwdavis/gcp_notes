@@ -16,6 +16,10 @@
 
 ### Links
 - [Hierarchical namespace](https://cloud.google.com/storage/docs/hns-overview)
+- [Availability and replication](https://cloud.google.com/storage/docs/availability-durability)
+- [Caching](https://cloud.google.com/storage/docs/caching)
+- [Batching](https://cloud.google.com/storage/docs/batch)
+- 
   
 ### Hierarchical namespaces
 1. Big performance improvements for certain workloads; Hadoop and Spark expecially
@@ -37,7 +41,7 @@
 * [Dataform](https://cloud.google.com/dataform/docs/overview)
 * [Bigquery pricing](https://cloud.google.com/bigquery/pricing?hl=en#storage)
 
-### Pricing
+### Cost management
 
 1. Queries with **high compute/read ratios are cheaper with on-demand pricing**, though they will likely be slower than if you through a lot of slots at them
    1. Example
@@ -86,6 +90,10 @@
 ---
 
 ## <img src="https://icon.icepanel.io/GCP/svg/Dataproc.svg" style="width:24px"> Dataproc
+### Links
+- [Dataproc templates](https://github.com/GoogleCloudPlatform/dataproc-templates/tree/main/java/src/main/java/com/google/cloud/dataproc/templates)   
+- [Google Serverless for Apache Spark pricing](https://cloud.google.com/dataproc-serverless/pricing?hl=en)
+  
 ### Local SSDs
 1. When provisioned, these are automically used for HDFS and scratch data like shuffle outputs are stored here
 2. With no ssds, shuffle data stored on **boot disks**
@@ -123,9 +131,9 @@
 
 ### Dataproc serverless
 
-1. Renamed to **Serverless for Spark**
+1. Renamed to **Google Cloud Serverless for Spark**
 2. Basically just google-managed ephemeral clusters
-   1. No benefit in speed
+   1. No big benefit in speed (still like 1.5-2 minutes to create cluster)
    2. Not really a great benefit in cost
 3. Use cases
    1. High variance in workloads; avoid clusters costs when not running jobs
@@ -149,9 +157,9 @@
       ```bash
       gcloud dataproc batches submit --project jwd-gcp-demos --region us-central1 spark --batch batch-50ee --class com.google.cloud.dataproc.templates.main.DataProcTemplate --version 1.2 --jars file:///usr/lib/spark/connector/spark-avro.jar,gs://dataproc-templates-binaries/latest/java/dataproc-templates.jar --subnet default -- --template GCSTOBIGQUERY --templateProperty project.id=jwd-gcp-demos --templateProperty gcs.bigquery.input.location=jwd-gcp-demos/orders_partitioned/order_date=2018-01-01/000767_0 --templateProperty gcs.bigquery.input.format=parquet --templateProperty gcs.bigquery.output.dataset=demos --templateProperty gcs.bigquery.output.table=dataproc_output
       ```
-      1. Note that Serverless for Apache Spark templates are not the same as Dataproc Workflow templates. They can be found at https://github.com/GoogleCloudPlatform/dataproc-templates/tree/main/java/src/main/java/com/google/cloud/dataproc/templates
+      1. Note that Serverless for Apache Spark templates are not the same as Dataproc Workflow templates.
 
-6. Pricing (https://cloud.google.com/dataproc-serverless/pricing?hl=en)
+6. Pricing
    1. Based on DCUs, accelerators, shuffle
    2. Billed per second (5 minute min for accelerators)
    3. vCPU is 0.6DCU
@@ -161,10 +169,6 @@
       2. 2 executors 4/16 each
       3. you can customize with spark properties
    6. Shuffle and accelerator pricing are in docs
-
-7. Profiling
-   2. Metrics highlights on job page
-   3. 
 
 ### IAM
 1. Should use a user-generated service account ([link](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/service-accounts))
@@ -201,7 +205,7 @@
 3. Version 2 builds a cluster for you; version 3 runs your stuff as pods on a google-managed cluster ([link](https://cloud.google.com/composer/docs/composer-versioning-overview))
 
 ### IAM Stuff
-4. Your composer environment service account needs permissions...
+1. Your composer environment service account needs permissions...
    1. composer.worker
    2. for the dataproc example it needs
       1. dataproc.editor
