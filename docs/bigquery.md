@@ -5,6 +5,11 @@
 * [Dataform](https://cloud.google.com/dataform/docs/overview)
 * [Bigquery pricing](https://cloud.google.com/bigquery/pricing?hl=en#storage)
 
+## Performance
+
+1. Partitioning a 7.5B row table has minimal impact when joing to a 75B unpartitioned table
+   1. Running the schema-demo normalized query against a partitioned order table saves 15-20% time
+
 ## Cost management
 
 1. Queries with **high compute/read ratios are cheaper with on-demand pricing**, though they will likely be slower than if you through a lot of slots at them
