@@ -16,3 +16,4 @@ Some GCP notes brought to you by **Jeff Davis** and **ROI Training**.
 - <img src="https://icon.icepanel.io/GCP/svg/Cloud-Composer.svg" style="width:24px"> [Composer](composer.md) - Airflow orchestration and DAG development
 - <img src="https://icon.icepanel.io/GCP/svg/PubSub.svg" style="width:24px"> [Pub/Sub](pubsub.md) - Messaging and BigQuery subscriptions
 - <img src="https://icon.icepanel.io/GCP/svg/Identity-And-Access-Management.svg" style="width:24px">  [Security](security.md) - IAM and service account impersonation
+- <img src="https://icon.icepanel.io/GCP/svg/Vertex-AI.svg" style="width:24px">  [Security](security.md) - AI/ML
