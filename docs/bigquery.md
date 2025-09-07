@@ -4,10 +4,11 @@
 
 * [Dataform](https://cloud.google.com/dataform/docs/overview)
 * [Bigquery pricing](https://cloud.google.com/bigquery/pricing?hl=en#storage)
+* [Iceberg](https://cloud.google.com/bigquery/docs/iceberg-tables#read-iceberg-tables-from-spark)
 
 ## Performance
 
-1. Partitioning a 7.5B row table has minimal impact when joing to a 75B unpartitioned table
+1. Partitioning a 7.5B row table has minimal impact when joining to a 75B unpartitioned table
    1. Running the schema-demo normalized query against a partitioned order table saves 15-20% time
 
 ## Cost management
@@ -29,7 +30,7 @@
 
 ## Dataform
 
-1. Tooling to manage transformations using Gitops (ELT)
+1. Tooling to manage transformations using GitOps (ELT)
 2. Create a Dataform repo to connect to a Git repo
 3. Git repo contains project details
    1. dataform.json -> project config
@@ -41,17 +42,32 @@
    4. includes
       1. javascript code to include
       2. can be referenced by javascript in sqlx
-4. Uses dataform core as a meta-language
+4. Uses Dataform core as a meta-language
    1. Gets compiled to sql
 
 ## Data canvas
 
 1. GUI that overlays regular table ui, regular query editor UI, Notebooks UI
 2. Integrates GenAI for writing queries and notebook cells
-3. Intended to provide visual thinkes a canvas they can use to explore data
+3. Intended to provide visual thinks a canvas they can use to explore data
 4. Feels very POC
 5. Hard to view even on ultrawide
 
-## Biglake tables for Apache Iceberg
+## BigLake
+1. User -> Dremel -> Connection/SA -> GCS
+2. Makes BigLake the security layer (users granted access there not on GCS)
+3. GCS, S3, ABS as backing stores
+4. Can support cross-cloud joins
+5. Makes BigQuery the standard access mechanism whether data is in native storage or object storage
+6. Supports the BigQuery Storage Read/Write APIs
+7. Allows BigQuery ML, SDP, and other stuff to run through BQ on data in GCS
+
+## BigLake tables for Apache Iceberg
+[image-ref]: https://cloud.google.com/static/bigquery/images/biglake-iceberg-table-arch.png "Architecture"
+
 1. Basically, swapping storage engine from native to Iceberg in GCS
 2. Retains much of the native storage functionality
+3. Uses BigLake metastore as source of truth for metadata
+4. Write requests and background optimizations create new files
+   1. DML statements
+   2. Streaming inserts
