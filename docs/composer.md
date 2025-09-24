@@ -21,12 +21,12 @@
       4. storage.objectviewer
       5. bigquery.dataowner on the dataset
 
-### Pricing
+## Pricing
 1. See [docs](https://cloud.google.com/composer/pricing#cloud-composer-pricing)
 2. Costs are non-trivial
 3. Very different models for 2 and 3
    
-### Airflow DAG development
+## Airflow DAG development
 1. DAG development with Cloud Composer can be frustrating because of all the lags
    1. You have to copy DAG to GCS
    2. You have to wait for Composer to see and process the DAG - by default, this entails long delays
@@ -65,3 +65,11 @@
       --port WEB_SERVER_PORT \
       --dags-path LOCAL_DAGS_PATH
       ```
+
+## Disaster recovery
+1. Focused on restoring an environment's operation after a disaster
+2. Create a failover environment (different region)
+3. Create a bucket for snapshots
+4. Set up DB maintenance
+5. Set up snapshots
+6. For failover, loads snapshot into failover environment, adjust config, and go on...

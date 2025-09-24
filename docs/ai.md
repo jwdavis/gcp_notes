@@ -21,7 +21,7 @@
 ### Distilling
 - [Step by step paper](https://research.google/blog/distilling-step-by-step-outperforming-larger-language-models-with-less-training-data-and-smaller-model-sizes/)
 - [Example in notebook](https://colab.research.google.com/github/GoogleCloudPlatform/vertex-ai-samples/blob/main/notebooks/official/generative_ai/distillation.ipynb)
-- 
+
 
 ## Transfer learning
 

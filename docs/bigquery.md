@@ -71,3 +71,55 @@
 4. Write requests and background optimizations create new files
    1. DML statements
    2. Streaming inserts
+
+## AEAD
+
+1. Alternative to col-level permissions with masked reader
+2. More importantly, allows crypto-shredding
+   1. For each user/customer, create and store a keyset row
+   2. When ingesting data for that entity, encrypt using the keyset
+   3. Delete the keyset row and that data becomes unreadable
+3. Supports AAD, so key, data, and supplementary piece of data
+   1. To decrypt, must provide key but also AAD
+
+## Analytics Hub
+1. Now known as BigQuery sharing (fka Analytics Hub)
+2. Effectively, a data asset marketplace interface
+3. Can monetize shared data through marketplace
+4. Creates a linked resource in your project that references the original published resource
+5. Not recommended to publish inside VPCSC
+6. Permissions can be granted at exchange and listing level
+7. Exchanges can be public or private
+8. Listing contains metadata that describes the shared assets and how to consume
+9. Can configure egress options to limit export of data by subscribers
+10. Some limits
+   1.  1000 linked datasets
+   2.  10K linked topics
+   3.  No table-specific IAM
+   4.  And [others](https://cloud.google.com/bigquery/docs/analytics-hub-introduction#limitations)
+11. Supports analysis rules
+    1.  aggregation threshold (n distinct entities must be present)
+    2.  differential privacy
+    3.  overlap analysis rule
+    4.  uses privacy_policy option in view definition
+
+## Materialized views
+1. Can included cache-enabled BigLake tables
+2. Limitations
+   1. Same org as base tables
+   2. Can't be nested
+   3. For join views, incremental updates works if only left able has appended data
+      1. Put the most frequently changing table first in join operations
+   4. Incremental updates aren't used updates or deletions have happened in source
+   5. No compute, filtering, or joining based on aggregations
+   6. Only specific aggregations supported
+3. Max staleness
+   1. If last refresh occurred within interval, returns from view (doesn't check source tables)
+   2. If outside, tries to combine view with changes and return result
+   3. If max is 4 and refresh occurred 7, you'll get data that is fresh to 4 hours ago
+   4. configure as option when creating a view
+4. Non-incremental MVs
+   1. Wider support (having, unions, outer joins, analytic functions)
+   2. created with `allow_non_incremental_definition` option
+   3. Must have `max_staleness`
+   4. Should have a refresh policy
